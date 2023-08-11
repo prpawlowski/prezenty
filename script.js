@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const potwierdzButton = document.getElementById("potwierdzButton");
+  const zapiszImionaButton = document.getElementById("zapiszImionaButton");
   const losujButton = document.getElementById("losujButton");
   const inputContainer = document.getElementById("inputContainer");
   const wynikiLosowania = document.getElementById("wynikiLosowania");
@@ -23,21 +24,26 @@ document.addEventListener("DOMContentLoaded", () => {
       inputContainer.appendChild(input);
     }
 
-    losujButton.disabled = false;
+    zapiszImionaButton.disabled = false;
   });
 
-  losujButton.addEventListener("click", () => {
-    wynikiLosowania.innerHTML = "";
-
-    for (let i = 1; i <= uczestnicy.length; i++) {
+  zapiszImionaButton.addEventListener("click", () => {
+    uczestnicy = [];
+    for (let i = 1; i <= inputContainer.children.length / 2; i++) {
       const inputId = `uczestnik${i}`;
       const input = document.getElementById(inputId);
       if (input) {
         uczestnicy.push(input.value);
       }
     }
+    losujButton.disabled = false;
+    zapiszImionaButton.disabled = true;
+  });
 
-    const pary = losujPrezenty(uczestnicy);
+  losujButton.addEventListener("click", () => {
+    wynikiLosowania.innerHTML = "";
+
+    const pary = losujPrezenty([...uczestnicy]);
     for (let osoba in pary) {
       const listItem = document.createElement("li");
       listItem.textContent = `${osoba} kupuje prezent dla ${pary[osoba]}`;
@@ -50,11 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const paryPrezentow = {};
 
     for (let osoba of uczestnicy) {
-      const indeksLosowanejOsoby = Math.floor(Math.random() * uczestnicyDoLosowania.length);
-      const losowanaOsoba = uczestnicyDoLosowania.splice(indeksLosowanejOsoby, 1)[0];
+      let losowanaOsoba = wylosujOsobe(uczestnicyDoLosowania, osoba);
       paryPrezentow[osoba] = losowanaOsoba;
+      uczestnicyDoLosowania.splice(uczestnicyDoLosowania.indexOf(losowanaOsoba), 1);
     }
 
     return paryPrezentow;
+  }
+
+  function wylosujOsobe(uczestnicyDoLosowania, osoba) {
+    let losowanaOsoba = uczestnicyDoLosowania[Math.floor(Math.random() * uczestnicyDoLosowania.length)];
+    while (losowanaOsoba === osoba) {
+      losowanaOsoba = uczestnicyDoLosowania[Math.floor(Math.random() * uczestnicyDoLosowania.length)];
+    }
+    return losowanaOsoba;
   }
 });
