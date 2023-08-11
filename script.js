@@ -3,17 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const losujButton = document.getElementById("losujButton");
   const inputContainer = document.getElementById("inputContainer");
   const wynikiLosowania = document.getElementById("wynikiLosowania");
-  let uczestnicy = []; // Przechowywanie uczestników
+  let uczestnicy = [];
 
   potwierdzButton.addEventListener("click", () => {
     const liczbaUczestnikowInput = document.getElementById("liczbaUczestnikow");
     const liczbaUczestnikow = parseInt(liczbaUczestnikowInput.value, 10);
 
-    inputContainer.innerHTML = "";
+    inputContainer.innerHTML = ""; // Wyczyszczenie kontenera przed dodaniem nowych pól
     uczestnicy = [];
 
     for (let i = 1; i <= liczbaUczestnikow; i++) {
-      const inputId = `uczestnik${i}`;
+      const inputId = `uczestnik${i}`; // Poprawne przypisanie identyfikatora
       const label = document.createElement("label");
       label.textContent = `Imię uczestnika ${i}: `;
       const input = document.createElement("input");
