@@ -9,11 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const liczbaUczestnikowInput = document.getElementById("liczbaUczestnikow");
     const liczbaUczestnikow = parseInt(liczbaUczestnikowInput.value, 10);
 
-    inputContainer.innerHTML = ""; // Wyczyszczenie kontenera przed dodaniem nowych pól
+    inputContainer.innerHTML = "";
     uczestnicy = [];
 
     for (let i = 1; i <= liczbaUczestnikow; i++) {
-      const inputId = `uczestnik${i}`; // Poprawne przypisanie identyfikatora
+      const inputId = `uczestnik${i}`;
       const label = document.createElement("label");
       label.textContent = `Imię uczestnika ${i}: `;
       const input = document.createElement("input");
