@@ -3,12 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const potwierdzButton = document.getElementById("potwierdzButton");
   const inputContainer = document.getElementById("inputContainer");
   const listaPrezentow = document.getElementById("listaPrezentow");
+  let uczestnicy = []; // Przechowywanie uczestników
 
   generujButton.addEventListener("click", () => {
     const liczbaUczestnikowInput = document.getElementById("liczbaUczestnikow");
     const liczbaUczestnikow = parseInt(liczbaUczestnikowInput.value, 10);
 
     inputContainer.innerHTML = "";
+    uczestnicy = [];
 
     for (let i = 1; i <= liczbaUczestnikow; i++) {
       const inputId = `uczestnik${i}`;
@@ -23,15 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   potwierdzButton.addEventListener("click", () => {
-    const uczestnicy = [];
-    for (let i = 1; i <= parseInt(liczbaUczestnikow.value, 10); i++) {
-      const inputId = `uczestnik${i}`;
-      const input = document.getElementById(inputId);
-      if (input) {
-        uczestnicy.push(input.value);
-      }
-    }
-
     const pary = losujPrezenty(uczestnicy);
     listaPrezentow.innerHTML = "";
 
