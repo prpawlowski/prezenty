@@ -1,6 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
   const generujButton = document.getElementById("generujButton");
+  const inputContainer = document.getElementById("inputContainer");
   const listaPrezentow = document.getElementById("listaPrezentow");
+
+  generujButton.addEventListener("click", () => {
+    const liczbaUczestnikowInput = document.getElementById("liczbaUczestnikow");
+    const liczbaUczestnikow = parseInt(liczbaUczestnikowInput.value, 10);
+
+    inputContainer.innerHTML = ""; // Wyczyść pole input
+
+    for (let i = 1; i <= liczbaUczestnikow; i++) {
+      const inputId = `uczestnik${i}`;
+      const label = document.createElement("label");
+      label.textContent = `Imię uczestnika ${i}: `;
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = inputId;
+      inputContainer.appendChild(label);
+      inputContainer.appendChild(input);
+    }
+  });
 
   function losujPrezenty(uczestnicy) {
     const uczestnicyDoLosowania = [...uczestnicy];
