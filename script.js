@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const generujButton = document.getElementById("generujButton");
   const potwierdzButton = document.getElementById("potwierdzButton");
+  const losujButton = document.getElementById("losujButton");
   const inputContainer = document.getElementById("inputContainer");
-  const listaPrezentow = document.getElementById("listaPrezentow");
+  const wynikiLosowania = document.getElementById("wynikiLosowania");
   let uczestnicy = []; // Przechowywanie uczestników
 
-  generujButton.addEventListener("click", () => {
+  potwierdzButton.addEventListener("click", () => {
     const liczbaUczestnikowInput = document.getElementById("liczbaUczestnikow");
     const liczbaUczestnikow = parseInt(liczbaUczestnikowInput.value, 10);
 
@@ -22,16 +22,26 @@ document.addEventListener("DOMContentLoaded", () => {
       inputContainer.appendChild(label);
       inputContainer.appendChild(input);
     }
+
+    losujButton.disabled = false;
   });
 
-  potwierdzButton.addEventListener("click", () => {
-    const pary = losujPrezenty(uczestnicy);
-    listaPrezentow.innerHTML = "";
+  losujButton.addEventListener("click", () => {
+    wynikiLosowania.innerHTML = "";
 
+    for (let i = 1; i <= uczestnicy.length; i++) {
+      const inputId = `uczestnik${i}`;
+      const input = document.getElementById(inputId);
+      if (input) {
+        uczestnicy.push(input.value);
+      }
+    }
+
+    const pary = losujPrezenty(uczestnicy);
     for (let osoba in pary) {
       const listItem = document.createElement("li");
       listItem.textContent = `${osoba} kupuje prezent dla ${pary[osoba]}`;
-      listaPrezentow.appendChild(listItem);
+      wynikiLosowania.appendChild(listItem);
     }
   });
 
